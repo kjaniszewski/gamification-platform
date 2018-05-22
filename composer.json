@@ -2,7 +2,7 @@
   "name": "kjaniszewski/gamification",
   "description": "Gamification Framework",
   "minimum-stability": "dev",
-  "license": "open source",
+  "license": "GPL-3.0-only",
   "autoload": {
     "psr-4": {
       "Gamify\\": "src/Gamify"
