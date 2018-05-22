@@ -1,0 +1,4 @@
+formatter.name: pretty
+suites:
+    gamification_suite:
+        namespace: Gamify
