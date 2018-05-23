@@ -8,6 +8,8 @@ use Gamify\Domain\Entity\Exception\Reward\EventAlreadyAssignedToRewardException;
 use Gamify\Domain\Entity\Exception\Reward\RewardItemAlreadyAssignedToRewardException;
 use Gamify\Domain\Entity\Reward\Item;
 use Gamify\Domain\Entity\Reward\RewardId;
+use Gamify\Domain\Entity\Reward\TriggeringEvent;
+use Gamify\Domain\Entity\Reward\TriggeringEventId;
 
 class Reward
 {
@@ -37,7 +39,7 @@ class Reward
     private $expression;
 
     /**
-     * @var ArrayCollection|Event[]
+     * @var ArrayCollection|TriggeringEvent[]
      */
     private $triggeringEvents;
 
@@ -130,14 +132,19 @@ class Reward
     /**
      * @param Event $event
      * @throws EventAlreadyAssignedToRewardException
+     * @throws Exception\InvalidUuidFormatException
      */
     public function addTriggeringEvent(Event $event) : void
     {
-        if ($this->triggeringEvents->contains($event)) {
-            throw new EventAlreadyAssignedToRewardException;
+        foreach ($this->triggeringEvents as $existingEvent) {
+            if ($existingEvent->getEvent()->getId()->isEqual($event->getId())) {
+                throw new EventAlreadyAssignedToRewardException;
+            }
         }
 
-        $this->triggeringEvents[] = $event;
+        $newEvent = new TriggeringEvent(TriggeringEventId::generate(), $this, $event);
+
+        $this->triggeringEvents->add($newEvent);
     }
 
     /**
@@ -145,9 +152,10 @@ class Reward
      */
     public function removeTriggeringEvent(Event $event) : void
     {
-        if ($this->triggeringEvents->contains($event)) {
-            $this->triggeringEvents->removeElement($event);
-            return;
+        foreach ($this->triggeringEvents as $existingEvent) {
+            if ($existingEvent->getEvent()->getId()->isEqual($event->getId())) {
+                $this->triggeringEvents->removeElement($existingEvent);
+            }
         }
     }
 
