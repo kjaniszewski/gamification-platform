@@ -4,6 +4,7 @@ namespace Gamify\Domain\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gamify\Domain\Entity\Exception\Player\AwardedItemAlreadyAssignedToPlayerException;
 use Gamify\Domain\Entity\Player\AwardedItem;
 use Gamify\Domain\Entity\Player\PlayerId;
@@ -22,12 +23,12 @@ class Player
     private $name;
 
     /**
-     * @var ArrayCollection|Reward[]
+     * @var Collection|Reward[]
      */
     private $rewards;
 
     /**
-     * @var ArrayCollection|AwardedItem[]
+     * @var Collection|AwardedItem[]
      */
     private $awardedItems;
 
@@ -75,7 +76,7 @@ class Player
     }
 
     /**
-     * @return ArrayCollection|Reward[]
+     * @return Collection|Reward[]
      */
     public function getRewards()
     {
@@ -98,9 +99,9 @@ class Player
     }
 
     /**
-     * @return ArrayCollection|AwardedItem[]
+     * @return Collection|AwardedItem[]
      */
-    public function getAwardedItems() : ArrayCollection
+    public function getAwardedItems() : Collection
     {
         return $this->awardedItems;
     }

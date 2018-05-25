@@ -4,6 +4,7 @@ namespace Gamify\Domain\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gamify\Domain\Entity\Exception\Reward\EventAlreadyAssignedToRewardException;
 use Gamify\Domain\Entity\Exception\Reward\RewardItemAlreadyAssignedToRewardException;
 use Gamify\Domain\Entity\Reward\Item;
@@ -39,12 +40,12 @@ class Reward
     private $expression;
 
     /**
-     * @var ArrayCollection|TriggeringEvent[]
+     * @var Collection|TriggeringEvent[]
      */
     private $triggeringEvents;
 
     /**
-     * @var ArrayCollection|Item[]
+     * @var Collection|Item[]
      */
     private $awardedItems;
 
@@ -122,9 +123,9 @@ class Reward
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getTriggeringEvents() : ArrayCollection
+    public function getTriggeringEvents() : Collection
     {
         return $this->triggeringEvents;
     }
@@ -176,9 +177,9 @@ class Reward
     }
 
     /**
-     * @return ArrayCollection|Item[]
+     * @return Collection|Item[]
      */
-    public function getAwardedItems() : ArrayCollection
+    public function getAwardedItems() : Collection
     {
         return $this->awardedItems;
     }

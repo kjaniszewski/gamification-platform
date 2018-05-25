@@ -5,6 +5,7 @@ namespace Gamify\Domain\Engine;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Gamify\Domain\Entity\Event;
 use Gamify\Domain\Entity\Player;
 use Gamify\Domain\Entity\Player\Reward\RewardId;
@@ -36,10 +37,10 @@ class GameProcessor
     /**
      * @param Player $player
      * @param Event $event
-     * @return ArrayCollection
+     * @return Collection
      * @throws \Exception
      */
-    public function advance(Player $player, Event $event) : ArrayCollection
+    public function advance(Player $player, Event $event) : Collection
     {
         $awardedRewards = new ArrayCollection();
 
@@ -66,11 +67,11 @@ class GameProcessor
     }
 
     /**
-     * @param ArrayCollection $playerRewards
+     * @param Collection $playerRewards
      * @param Reward $possibleReward
      * @return bool
      */
-    public function isRewardAlreadyAwarded(ArrayCollection $playerRewards, Reward $possibleReward) : bool
+    public function isRewardAlreadyAwarded(Collection $playerRewards, Reward $possibleReward) : bool
     {
         return $playerRewards->filter(
             function (Player\Reward $playerReward) use ($possibleReward) {
