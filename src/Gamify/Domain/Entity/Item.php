@@ -97,4 +97,11 @@ class Item
     {
         $this->cummulative = $cummulative;
     }
+
+    public function __toString()
+    {
+        return (string)$this->id;
+    }
+
+
 }

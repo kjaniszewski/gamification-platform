@@ -95,4 +95,9 @@ class Event
     {
         $this->description = $description;
     }
+
+    public function __toString()
+    {
+        return (string)$this->id;
+    }
 }

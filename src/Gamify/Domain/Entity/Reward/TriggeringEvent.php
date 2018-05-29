@@ -59,4 +59,20 @@ class TriggeringEvent
     {
         return $this->reward;
     }
+
+    /**
+     * @param Event $event
+     */
+    public function setEvent(Event $event) : void
+    {
+        $this->event = $event;
+    }
+
+    /**
+     * @param Reward $reward
+     */
+    public function setReward(Reward $reward) : void
+    {
+        $this->reward = $reward;
+    }
 }

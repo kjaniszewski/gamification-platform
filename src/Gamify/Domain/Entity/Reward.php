@@ -207,4 +207,11 @@ class Reward
             return;
         }
     }
+
+    public function __toString()
+    {
+        return (string)$this->id;
+    }
+
+
 }
