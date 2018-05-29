@@ -10,9 +10,9 @@ interface EventRepositoryInterface
 {
     public function persist(Event $event);
 
-    public function getById(EventId $id) : Collection;
+    public function getById(EventId $id) : Event;
 
-    public function getByTextualId(string $id) : Collection;
+    public function getByTextualId(string $id) : Event;
 
     public function getByName(string $name) : Collection;
 

@@ -30,10 +30,10 @@ class Item
     /**
      * Player constructor.
      * @param RewardItemId $id
-     * @param Item $item
+     * @param \Gamify\Domain\Entity\Item $item
      * @param Reward $reward
      */
-    public function __construct(RewardItemId $id, Item $item, Reward $reward)
+    public function __construct(RewardItemId $id, \Gamify\Domain\Entity\Item $item, Reward $reward)
     {
         $this->id = $id;
         $this->item = $item;
@@ -57,9 +57,9 @@ class Item
     }
 
     /**
-     * @return \Gamify\Domain\Entity\Reward\RewardItemId
+     * @return RewardItemId
      */
-    public function getId() : \Gamify\Domain\Entity\Reward\RewardItemId
+    public function getId() : RewardItemId
     {
         return $this->id;
     }

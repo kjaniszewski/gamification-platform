@@ -10,7 +10,7 @@ interface PlayerRepositoryInterface
 {
     public function persist(Player $player);
 
-    public function getById(PlayerId $id) : Collection;
+    public function getById(PlayerId $id) : Player;
 
     public function getByName(string $name) : Collection;
 

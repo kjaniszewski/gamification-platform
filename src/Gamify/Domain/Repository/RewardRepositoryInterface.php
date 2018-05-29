@@ -9,13 +9,13 @@ use Gamify\Domain\Entity\Reward\RewardId;
 
 interface RewardRepositoryInterface
 {
-    public function persist(Reward $achievement);
+    public function persist(Reward $reward);
 
-    public function getById(RewardId $id) : Collection;
+    public function getById(RewardId $id) : Reward;
 
-    public function getByTextualId(string $id) : Collection;
+    public function getByTextualId(string $id) : Reward;
 
     public function getByTriggeringEvent(Event $event) : Collection;
 
-    public function remove(Reward $achievement);
+    public function remove(Reward $reward);
 }

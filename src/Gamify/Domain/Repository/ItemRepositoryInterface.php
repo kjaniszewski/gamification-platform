@@ -10,9 +10,9 @@ interface ItemRepositoryInterface
 {
     public function persist(Item $item);
 
-    public function getById(ItemId $id) : Collection;
+    public function getById(ItemId $id) : Item;
 
-    public function getByTextualId(string $id) : Collection;
+    public function getByTextualId(string $id) : Item;
 
     public function getByName(string $name) : Collection;
 
