@@ -40,6 +40,11 @@ class Reward
     private $expression;
 
     /**
+     * @var bool|null
+     */
+    private $alwaysTriggered;
+
+    /**
      * @var Collection|TriggeringEvent[]
      */
     private $triggeringEvents;
@@ -48,6 +53,21 @@ class Reward
      * @var Collection|Item[]
      */
     private $awardedItems;
+
+    /**
+     * @var null|Reward
+     */
+    private $nextRewardInChain;
+
+    /**
+     * @var null|Reward
+     */
+    private $previousRewardInChain;
+
+    /**
+     * @var bool
+     */
+    private $multiple;
 
     /**
      * Player constructor.
@@ -64,6 +84,7 @@ class Reward
         $this->triggeringEvents = new ArrayCollection();
         $this->awardedItems = new ArrayCollection();
         $this->expression = $expression;
+        $this->multiple = false;
     }
 
     /**
@@ -213,5 +234,67 @@ class Reward
         return (string)$this->id;
     }
 
+    /**
+     * @return bool|null
+     */
+    public function getAlwaysTriggered() : ?bool
+    {
+        return $this->alwaysTriggered;
+    }
 
+    /**
+     * @param bool|null $alwaysTriggered
+     */
+    public function setAlwaysTriggered(?bool $alwaysTriggered) : void
+    {
+        $this->alwaysTriggered = $alwaysTriggered;
+    }
+
+    /**
+     * @return Reward|null
+     */
+    public function getNextRewardInChain()
+    {
+        return $this->nextRewardInChain;
+    }
+
+    /**
+     * @param Reward|null $nextRewardInChain
+     */
+    public function setNextRewardInChain(?Reward $nextRewardInChain) : void
+    {
+        $this->nextRewardInChain = $nextRewardInChain;
+    }
+
+    /**
+     * @return Reward|null
+     */
+    public function getPreviousRewardInChain() : ?Reward
+    {
+        return $this->previousRewardInChain;
+    }
+
+    /**
+     * @param Reward|null $previousRewardInChain
+     */
+    public function setPreviousRewardInChain(?Reward $previousRewardInChain) : void
+    {
+        $this->previousRewardInChain = $previousRewardInChain;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultiple() : bool
+    {
+        return $this->multiple;
+    }
+
+    /**
+     * @param bool $multiple
+     */
+    public function setMultiple(bool $multiple) : void
+    {
+        $this->multiple = $multiple;
+    }
 }

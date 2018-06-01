@@ -17,5 +17,7 @@ interface RewardRepositoryInterface
 
     public function getByTriggeringEvent(Event $event) : Collection;
 
+    public function getAlwaysTriggered() : Collection;
+
     public function remove(Reward $reward);
 }

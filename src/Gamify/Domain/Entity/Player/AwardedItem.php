@@ -3,9 +3,9 @@
 namespace Gamify\Domain\Entity\Player;
 
 use Gamify\Domain\Entity\Event;
+use Gamify\Domain\Entity\Item;
 use Gamify\Domain\Entity\Player;
 use Gamify\Domain\Entity\Player\AwardedItem\AwardedItemId;
-use Gamify\Domain\Entity\Reward\Item;
 
 class AwardedItem
 {
@@ -25,7 +25,7 @@ class AwardedItem
     private $reward;
 
     /**
-     * @var \Gamify\Domain\Entity\Reward\Item
+     * @var \Gamify\Domain\Entity\Item
      */
     private $item;
 
@@ -33,6 +33,11 @@ class AwardedItem
      * @var Event
      */
     private $event;
+
+    /**
+     * @var string|null
+     */
+    private $value;
 
     /**
      * @var \DateTime
@@ -46,9 +51,10 @@ class AwardedItem
      * @param \Gamify\Domain\Entity\Reward $reward
      * @param Item $item
      * @param Event $event
+     * @param null|string $value
      * @throws \Exception
      */
-    public function __construct(AwardedItemId $id, Player $player, \Gamify\Domain\Entity\Reward $reward, Item $item, Event $event)
+    public function __construct(AwardedItemId $id, Player $player, \Gamify\Domain\Entity\Reward $reward, Item $item, Event $event, ?string $value)
     {
         $this->id = $id;
         $this->player = $player;
@@ -56,6 +62,7 @@ class AwardedItem
         $this->event = $event;
         $this->createdAt = new \DateTimeImmutable();
         $this->item = $item;
+        $this->value = $value;
     }
 
     /**
@@ -104,5 +111,13 @@ class AwardedItem
     public function getItem() : Item
     {
         return $this->item;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getValue() : ?string
+    {
+        return $this->value;
     }
 }

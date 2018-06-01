@@ -85,17 +85,30 @@ class Player
 
     /**
      * @param Reward $reward
+     * @param array|null $customValues
+     * @return Collection
+     * @throws AwardedItemAlreadyAssignedToPlayerException
      * @throws Exception\InvalidUuidFormatException
      * @throws \Exception
      */
-    public function addReward(Reward $reward) : void
+    public function addReward(Reward $reward, ?array $customValues = []) : Collection
     {
         $this->rewards->add($reward);
 
+        $awardedItems = new ArrayCollection();
+
         foreach ($reward->getReward()->getAwardedItems() as $awardedItem) {
-            $item = new AwardedItem(AwardedItem\AwardedItemId::generate(), $this, $reward->getReward(), $awardedItem, $reward->getEvent());
+            $value = $awardedItem->getValue();
+
+            if (array_key_exists($awardedItem->getItem()->getTextualId(), $customValues)) {
+                $value = $customValues[$awardedItem->getItem()->getTextualId()];
+            }
+            $item = new AwardedItem(AwardedItem\AwardedItemId::generate(), $this, $reward->getReward(), $awardedItem->getItem(), $reward->getEvent(), $value);
             $this->addAwardedItem($item);
+            $awardedItems->add($item);
         }
+
+        return $awardedItems;
     }
 
     /**
@@ -144,15 +157,24 @@ class Player
      */
     public function updateSummaries(AwardedItem $awardedItem) : void
     {
-        $item = $awardedItem->getItem()->getItem();
-        if (!array_key_exists($item->getTextualId(), $this->itemSummaries)) {
-            $this->itemSummaries[$item->getTextualId()] = null;
+        $item = $awardedItem->getItem();
+        $group = $item->getType()->getTextualId();
+        $itemId = $item->getTextualId();
+
+        if (!array_key_exists($group, $this->itemSummaries)) {
+            $this->itemSummaries[$group] = [];
+        }
+
+        if (!array_key_exists($itemId, $this->itemSummaries[$group])) {
+            $this->itemSummaries[$group][$itemId] = null;
         }
 
         if ($item->isCummulative()) {
-            $this->itemSummaries[$item->getTextualId()] += $awardedItem->getItem()->getValue();
+            $this->itemSummaries[$group][$itemId] += $awardedItem->getValue();
+        } else if ($awardedItem->getValue() !== null) {
+            $this->itemSummaries[$group][$itemId] = $awardedItem->getValue();
         } else {
-            $this->itemSummaries[$item->getTextualId()] = $item->getName();
+            $this->itemSummaries[$group][$itemId] = $item->getName();
         }
     }
 }

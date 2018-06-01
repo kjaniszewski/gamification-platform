@@ -4,6 +4,7 @@ namespace Gamify\Domain\Entity;
 
 
 use Gamify\Domain\Entity\Item\ItemId;
+use Gamify\Domain\Entity\Item\Type;
 
 class Item
 {
@@ -28,18 +29,25 @@ class Item
     private $cummulative;
 
     /**
+     * @var Type
+     */
+    private $type;
+
+    /**
      * Player constructor.
      * @param ItemId $id
      * @param string $name
      * @param string $textualId
      * @param bool $cummulative
+     * @param Type $type
      */
-    public function __construct(ItemId $id, string $name, string $textualId, bool $cummulative)
+    public function __construct(ItemId $id, string $name, string $textualId, bool $cummulative, Type $type)
     {
         $this->id = $id;
         $this->name = $name;
         $this->textualId = $textualId;
         $this->cummulative = $cummulative;
+        $this->type = $type;
     }
 
     /**
@@ -103,5 +111,19 @@ class Item
         return (string)$this->id;
     }
 
+    /**
+     * @return Type
+     */
+    public function getType() : Type
+    {
+        return $this->type;
+    }
 
+    /**
+     * @param Type $type
+     */
+    public function setType(Type $type) : void
+    {
+        $this->type = $type;
+    }
 }
